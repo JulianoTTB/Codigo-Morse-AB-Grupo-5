@@ -6,7 +6,7 @@ public class ArvoreBinariaMorse {
     }
 
     public void inserir(String codigoMorse, char caractereCorrespondente){
-        if (false) return;
+        if (buscar(codigoMorse) != null) return;
         No atual = this.raiz;
         char caractere;
         boolean fim;
