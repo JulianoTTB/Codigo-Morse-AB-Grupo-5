@@ -6,7 +6,7 @@ public class ArvoreBinariaMorse {
     }
 
     public void inserir(String codigoMorse, char caractereCorrespondente){
-        if (buscar(codigoMorse) != null) return;
+        if (false) return;
         No atual = this.raiz;
         char caractere;
         boolean fim;
@@ -19,10 +19,7 @@ public class ArvoreBinariaMorse {
 
             switch (caractere){
                 case '.':
-                    if (atual.getFilhoEsquerdo() != null){
-                        atual = atual.getFilhoEsquerdo();
-                    }
-                    else{
+                    if (atual.getFilhoEsquerdo() == null){
                         No novo_no = new No(caractere);
 
                         if (fim){
@@ -32,12 +29,11 @@ public class ArvoreBinariaMorse {
 
                         atual.setFilhoEsquerdo(novo_no);
                     }
+
+                    atual = atual.getFilhoEsquerdo();
                     break;
                 case '-':
-                    if (atual.getFilhoDireito() != null){
-                        atual = atual.getFilhoDireito();
-                    }
-                    else{
+                    if (atual.getFilhoDireito() == null){
                         No novo_no = new No(caractere);
 
                         if (fim){
@@ -47,6 +43,7 @@ public class ArvoreBinariaMorse {
 
                         atual.setFilhoDireito(novo_no);
                     }
+                    atual = atual.getFilhoDireito();
                     break;
             }
         }
