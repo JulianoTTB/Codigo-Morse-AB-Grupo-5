@@ -49,14 +49,14 @@ public class ArvoreBinariaMorse {
         }
     }
 
-    public char buscar(String codigoMorse) {
-        int tamanho = codigoMorse.length();
+    public char buscar(String caractereMorse) {
+        int tamanho = caractereMorse.length();
         char caractere;
         No atual = this.raiz;
         boolean fim;
 
         for(int i = 0; i < tamanho; i++) {
-            caractere = codigoMorse.charAt(i);
+            caractere = caractereMorse.charAt(i);
             fim = i == tamanho - 1;
 
             if(caractere == ' ') continue;
