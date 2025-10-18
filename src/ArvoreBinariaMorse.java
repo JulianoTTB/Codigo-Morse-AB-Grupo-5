@@ -48,4 +48,37 @@ public class ArvoreBinariaMorse {
             }
         }
     }
+
+    public char buscar(String codigoMorse) {
+        int tamanho = codigoMorse.length();
+        char caractere;
+        No atual = this.raiz;
+        boolean fim;
+
+        for(int i = 0; i < tamanho; i++) {
+            caractere = codigoMorse.charAt(i);
+            fim = i == tamanho - 1;
+
+            if(caractere == ' ') continue;
+
+            if(caractere == '.') {
+                if(atual.getFilhoEsquerdo() == null) {
+                    return '\0';
+                }
+                atual = atual.getFilhoEsquerdo();
+            } else if(caractere == '-') {
+                if(atual.getFilhoDireito() == null) {
+                    return '\0';
+                }
+                atual = atual.getFilhoDireito();
+            } else {
+                return '\0';
+            }
+        }
+        if(atual.eFinalDaPalavra()) {
+            return atual.getCaractereCorrespondente();
+        } else {
+            return '\0';
+        }
+    }
 }
