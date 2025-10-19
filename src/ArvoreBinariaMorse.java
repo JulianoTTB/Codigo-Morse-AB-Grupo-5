@@ -108,12 +108,10 @@ public class ArvoreBinariaMorse {
             atual.setCaractereCorrespondente('\0');
             atual.setFinalDaPalavra(false);
         } else {
-            if (pai != null) {
-                if (filhoEsquerdo) {
-                    pai.setFilhoEsquerdo(null);
-                } else {
-                    pai.setFilhoDireito(null);
-                }
+            if (filhoEsquerdo) {
+                pai.setFilhoEsquerdo(null);
+            } else {
+                pai.setFilhoDireito(null);
             }
         }
         return true;
