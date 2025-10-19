@@ -59,35 +59,62 @@ public class ArvoreBinariaMorse {
         }
     }
 
-    public char buscar(String caractereMorse) {
-        int tamanho = caractereMorse.length();
+    public String buscar(String codigoMorse) {
+        int tamanho = codigoMorse.length();
         char caractere;
+        String caractereMorse = "";
+        String traducaoMorse = "";
         No atual = this.raiz;
 
-        for(int i = 0; i < tamanho; i++) {
-            caractere = caractereMorse.charAt(i);
+        for (int i = 0; i < tamanho; i++) {
+            caractere = codigoMorse.charAt(i);
 
-            if(caractere == ' ') continue;
+            if (caractere != ' ') {
+                caractereMorse = caractereMorse + caractere;
+            }
 
-            if(caractere == '.') {
-                if(atual.getFilhoEsquerdo() == null) {
-                    return '\0';
+            if (caractere == ' ' || i == tamanho - 1) {
+                if (caractereMorse.length() > 0) {
+                    atual = this.raiz;
+                    boolean valido = true;
+
+                    for (int j = 0; j < caractereMorse.length(); j++) {
+                        char caractereAtualMorse = caractereMorse.charAt(j);
+
+                        if (caractereAtualMorse == '.') {
+                            if (atual.getFilhoEsquerdo() != null) {
+                                atual = atual.getFilhoEsquerdo();
+                            } else {
+                                valido = false;
+                                break;
+                            }
+                        } else if (caractereAtualMorse == '-') {
+                            if (atual.getFilhoDireito() != null) {
+                                atual = atual.getFilhoDireito();
+                            } else {
+                                valido = false;
+                                break;
+                            }
+                        } else {
+                            valido = false;
+                            break;
+                        }
+                    }
+                    if (valido) {
+                        traducaoMorse = traducaoMorse + atual.getCaractereCorrespondente();
+                    } else {
+                        traducaoMorse = traducaoMorse + "(Caractere não identificado)";
+                    }
+                    caractereMorse = "";
                 }
-                atual = atual.getFilhoEsquerdo();
-            } else if(caractere == '-') {
-                if(atual.getFilhoDireito() == null) {
-                    return '\0';
+
+                if(i < tamanho - 1 && codigoMorse.charAt(i + 1) == ' ') {
+                    traducaoMorse = traducaoMorse + " ";
+                    i += 1;
                 }
-                atual = atual.getFilhoDireito();
-            } else {
-                return '\0';
             }
         }
-        if(atual.eFinalDaPalavra()) {
-            return atual.getCaractereCorrespondente();
-        } else {
-            return '\0';
-        }
+        return traducaoMorse;
     }
 
     public boolean remover(String codigoMorse) {
