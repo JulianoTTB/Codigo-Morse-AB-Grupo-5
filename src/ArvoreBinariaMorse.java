@@ -6,7 +6,7 @@ public class ArvoreBinariaMorse {
     }
 
     public void inserir(String codigoMorse, char caractereCorrespondente){
-        if (buscar(codigoMorse) != null) return;
+        if (buscar(codigoMorse) != '\0') return;
         No atual = this.raiz;
         char caractere;
         boolean fim;
@@ -81,4 +81,29 @@ public class ArvoreBinariaMorse {
             return '\0';
         }
     }
+
+    public void remover(String codigoMorse) {
+        No atual = raiz;
+        int i = 0;
+
+
+        while (atual != null && i < codigoMorse.length()) {
+            char simbolo = codigoMorse.charAt(i);
+            if (simbolo == '.') {
+                atual = atual.getFilhoEsquerdo();
+            } else if (simbolo == '-') {
+                atual = atual.getFilhoDireito();
+            }
+
+            i++;
+        }
+
+        if (atual != null) {
+            atual.setCaractereMorse('\0');
+            atual.setFinalDaPalavra(false);
+        }
+    }
+
+
+
 }
