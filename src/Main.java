@@ -67,12 +67,12 @@ public class Main {
 
     private static void buscarMenu(ArvoreBinariaMorse arvoreBinariaMorse){
         System.out.println("************ Buscar *************");
-        System.out.print("Digite o código morse: ");
+        System.out.print("Digite o código morse (para frases separe por espaço os codigos morses): ");
         String codigoMorse = scanner.nextLine();
 
         String encontrado = arvoreBinariaMorse.buscar(codigoMorse);
 
-        if (encontrado == "\0")
+        if (encontrado == "(Caractere não identificado)")
             System.out.println("Caractere não está na árvore");
         else
             System.out.println("Caractere encontrado: " + encontrado);
