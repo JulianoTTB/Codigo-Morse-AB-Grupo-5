@@ -70,9 +70,9 @@ public class Main {
         System.out.print("Digite o código morse: ");
         String codigoMorse = scanner.nextLine();
 
-        char encontrado = arvoreBinariaMorse.buscar(codigoMorse);
+        String encontrado = arvoreBinariaMorse.buscar(codigoMorse);
 
-        if (encontrado == '\0')
+        if (encontrado == "\0")
             System.out.println("Caractere não está na árvore");
         else
             System.out.println("Caractere encontrado: " + encontrado);
