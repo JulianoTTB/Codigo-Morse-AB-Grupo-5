@@ -29,6 +29,11 @@ public class ArvoreBinariaMorse {
 
                         atual.setFilhoEsquerdo(novo_no);
                     }
+                    else if (fim){
+                        No proximo = atual.getFilhoEsquerdo();
+                        proximo.setFinalDaPalavra(fim);
+                        proximo.setCaractereCorrespondente(caractereCorrespondente);
+                    }
 
                     atual = atual.getFilhoEsquerdo();
                     break;
@@ -42,6 +47,11 @@ public class ArvoreBinariaMorse {
                         }
 
                         atual.setFilhoDireito(novo_no);
+                    }
+                    else if (fim){
+                        No proximo = atual.getFilhoDireito();
+                        proximo.setFinalDaPalavra(fim);
+                        proximo.setCaractereCorrespondente(caractereCorrespondente);
                     }
                     atual = atual.getFilhoDireito();
                     break;
