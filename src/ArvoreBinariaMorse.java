@@ -53,11 +53,9 @@ public class ArvoreBinariaMorse {
         int tamanho = caractereMorse.length();
         char caractere;
         No atual = this.raiz;
-        boolean fim;
 
         for(int i = 0; i < tamanho; i++) {
             caractere = caractereMorse.charAt(i);
-            fim = i == tamanho - 1;
 
             if(caractere == ' ') continue;
 
@@ -82,27 +80,82 @@ public class ArvoreBinariaMorse {
         }
     }
 
-    public void remover(String codigoMorse) {
+    public boolean remover(String codigoMorse) {
+        if (codigoMorse == null || codigoMorse.length() == 0) return false;
+
         No atual = raiz;
-        int i = 0;
+        No pai = null;
+        boolean filhoEsquerdo = false;
 
+        for (int i = 0; i < codigoMorse.length(); i++) {
+            char c = codigoMorse.charAt(i);
+            pai = atual;
 
-        while (atual != null && i < codigoMorse.length()) {
-            char simbolo = codigoMorse.charAt(i);
-            if (simbolo == '.') {
+            if (c == '.') {
                 atual = atual.getFilhoEsquerdo();
-            } else if (simbolo == '-') {
+                filhoEsquerdo = true;
+            } else if (c == '-') {
                 atual = atual.getFilhoDireito();
+                filhoEsquerdo = false;
+            } else {
+                return false;
             }
 
-            i++;
+            if (atual == null) return false;
         }
 
-        if (atual != null) {
-            atual.setCaractereMorse('\0');
+        if (atual.getFilhoEsquerdo() != null || atual.getFilhoDireito() != null) {
+            atual.setCaractereCorrespondente('\0');
             atual.setFinalDaPalavra(false);
+        } else {
+            if (pai != null) {
+                if (filhoEsquerdo) {
+                    pai.setFilhoEsquerdo(null);
+                } else {
+                    pai.setFilhoDireito(null);
+                }
+            }
+        }
+        return true;
+    }
+
+
+    public void imprimir() {
+        No[] fila = new No[150];
+        String[] caminhos = new String[150];
+        int comeco = 0;
+        int fim = 0;
+
+        fila[fim] = raiz;
+        caminhos[fim] = "";
+        fim++;
+
+        while (comeco < fim) {
+            No atual = fila[comeco];
+            String caminho = caminhos[comeco];
+            comeco++;
+
+            if (atual == null) continue;
+
+            if (atual.eFinalDaPalavra()) {
+                System.out.println("(" + caminho + ") → " + atual.getCaractereCorrespondente());
+            } else {
+                System.out.println("(" + caminho + ")");
+            }
+
+            if (atual.getFilhoEsquerdo() != null) {
+                fila[fim] = atual.getFilhoEsquerdo();
+                caminhos[fim] = caminho + ".";
+                fim++;
+            }
+            if (atual.getFilhoDireito() != null) {
+                fila[fim] = atual.getFilhoDireito();
+                caminhos[fim] = caminho + "-";
+                fim++;
+            }
         }
     }
+
 
 
 
